@@ -4,7 +4,9 @@
       <router-link to="/">Hello</router-link> |
       <router-link to="/callservice">Service</router-link> |
       <router-link to="/bootstrap">Bootstrap</router-link> |
-      <router-link to="/user">User</router-link>
+      <router-link to="/user">User</router-link> |
+      <router-link to="/logs">Logs</router-link> |
+      <router-link to="/partners">Partners</router-link>
     </div>
     <router-view :hellomsg="msg"></router-view>
   </div>
@@ -27,7 +29,7 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  text-align: left;
   color: #2c3e50;
   margin-top: 20px;
 }

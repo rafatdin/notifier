@@ -2,7 +2,6 @@
   <div class="service">
     <h1>{{ msg }}</h1>
     <h2>REST service call results</h2>
-
     <button @click="callRestService()">CALL Spring Boot REST backend service</button>
 
     <h4>Backend response: {{ response }}</h4>

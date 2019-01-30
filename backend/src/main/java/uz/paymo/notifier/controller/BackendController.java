@@ -1,7 +1,7 @@
-package de.jonashackt.springbootvuejs.controller;
+package uz.paymo.notifier.controller;
 
-import de.jonashackt.springbootvuejs.domain.User;
-import de.jonashackt.springbootvuejs.repository.UserRepository;
+import uz.paymo.notifier.domain.User;
+import uz.paymo.notifier.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

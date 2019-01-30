@@ -1,4 +1,4 @@
-package de.jonashackt.springbootvuejs.domain;
+package uz.paymo.notifier.domain;
 
 import javax.persistence.*;
 

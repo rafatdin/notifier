@@ -31,7 +31,6 @@ public class SlackHelper {
     private String link;
 
     public String attachment(SlackRequest request, PartnerSystem partner) throws Exception {
-        AttachmentField field = new AttachmentField(request.getFieldTitle(), request.getFieldValue());
         MessageType type;
         try {
             type = typeRepository.findFirstByName(request.getType());
@@ -40,11 +39,13 @@ public class SlackHelper {
             type = typeRepository.findFirstByName("error");
         }
 
-        SlackAttachment attachment = new SlackAttachment(field,
+        SlackAttachment attachment = new SlackAttachment(
+                partner.getName(),
+                request.getFieldValue(),
                 request.getPretext(),
                 type.getColor(),
                 request.getUser(),
-                request.getTitle(),
+                request.getFieldTitle(),
                 link);
 
         List<SlackAttachment> attachments = new ArrayList<>();
@@ -52,7 +53,6 @@ public class SlackHelper {
 
         ObjectMapper mapper = new ObjectMapper();
         JSONObject object = new JSONObject();
-        object.put("text", "#" + partner.getName());
         object.put("attachments", attachments);
 
         String result = mapper.writeValueAsString(object);
@@ -63,16 +63,14 @@ public class SlackHelper {
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     class SlackAttachment{
-        SlackAttachment(AttachmentField field, String pretext, String color, String user, String title, String link){
-            List<AttachmentField> fields = new ArrayList<>();
-            fields.add(field);
-
-            this.fields=fields;
+        SlackAttachment(String partner, String text, String pretext, String color, String user, String title, String link){
             this.pretext= pretext;
             this.color= color;
             this.author_name= user;
             this.title= title;
             this.title_link= link;
+            this.footer = partner;
+            this.text = text;
         }
         @JsonProperty("pretext")
         private String pretext;
@@ -84,23 +82,9 @@ public class SlackHelper {
         private String title;
         @JsonProperty("title_link")
         private String title_link;
-        @JsonProperty("fields")
-        private List<AttachmentField> fields;
-    }
-
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    class AttachmentField{
-        AttachmentField(){}
-        AttachmentField(String title, String value){
-            this.title = title;
-            this.value = value;
-            this.is_short = true;
-        }
-        @JsonProperty("title")
-        private String title;
-        @JsonProperty("value")
-        private String value;
-        @JsonProperty("short")
-        private Boolean is_short;
+        @JsonProperty("footer")
+        private String footer;
+        @JsonProperty("text")
+        private String text;
     }
 }

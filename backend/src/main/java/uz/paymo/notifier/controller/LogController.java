@@ -1,41 +1,26 @@
 package uz.paymo.notifier.controller;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jcraft.jsch.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.input.ReversedLinesFileReader;
-import org.codehaus.jackson.map.util.JSONPObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 import uz.paymo.notifier.domain.PartnerSystem;
-import uz.paymo.notifier.domain.User;
-import uz.paymo.notifier.dto.SlackRequest;
-import uz.paymo.notifier.dto.SystemsDto;
 import uz.paymo.notifier.repository.PartnerSystemRepository;
-import uz.paymo.notifier.util.ApiHelper;
 import uz.paymo.notifier.util.Encrypt;
-import uz.paymo.notifier.util.JwtHelper;
-import uz.paymo.notifier.util.SlackHelper;
 import uz.paymo.notifier.vm.LogRange;
 
-import java.io.*;
-import java.nio.file.Files;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 @Controller
 public class LogController {

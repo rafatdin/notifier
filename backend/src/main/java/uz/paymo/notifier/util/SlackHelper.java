@@ -3,7 +3,7 @@ package uz.paymo.notifier.util;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import uz.paymo.notifier.dto.SlackRequest;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import uz.paymo.notifier.domain.MessageType;
 import uz.paymo.notifier.domain.PartnerSystem;
+import uz.paymo.notifier.dto.SlackRequest;
 import uz.paymo.notifier.repository.MessageTypeRepository;
 
 import java.util.ArrayList;
@@ -39,19 +40,22 @@ public class SlackHelper {
             type = typeRepository.findFirstByName("error");
         }
 
-        String link = this.link;
-        if(link.charAt(link.length()-1) == '/')
-            link+="/";
-
         SlackAttachment attachment = new SlackAttachment(field,
                 request.getPretext(),
                 type.getColor(),
                 request.getUser(),
                 request.getTitle(),
-                link+""+partner.getId());
+                link);
+
+        List<SlackAttachment> attachments = new ArrayList<>();
+        attachments.add(attachment);
 
         ObjectMapper mapper = new ObjectMapper();
-        String result = mapper.writeValueAsString(attachment);
+        JSONObject object = new JSONObject();
+        object.put("text", "#" + partner.getName());
+        object.put("attachments", attachments);
+
+        String result = mapper.writeValueAsString(object);
         LOG.debug("Generated json to send to hook: " + result);
         return result;
     }
@@ -90,7 +94,7 @@ public class SlackHelper {
         AttachmentField(String title, String value){
             this.title = title;
             this.value = value;
-            this.is_short = false;
+            this.is_short = true;
         }
         @JsonProperty("title")
         private String title;

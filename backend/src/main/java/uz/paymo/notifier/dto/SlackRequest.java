@@ -36,6 +36,8 @@ public class SlackRequest {
     }
 
     public String getType() {
+        if(type == null)
+            type = "debug";
         return type;
     }
 

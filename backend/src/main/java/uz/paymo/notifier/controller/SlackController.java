@@ -37,6 +37,9 @@ public class SlackController {
         //1. Identify partner
         String partnerName = JwtHelper.getPartnerName(xJWTHeader);
         PartnerSystem partner = partnerRepo.findFirstByName(partnerName);
+        if(partner == null)
+            return ResponseEntity.badRequest().body("{\"result\":\"FAIL\",\"message\":\"Partner is not found\"}");
+
 
         try {
             //2. Generate json to send to slack

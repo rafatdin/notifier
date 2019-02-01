@@ -2,6 +2,7 @@ package uz.paymo.notifier.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import uz.paymo.notifier.domain.PartnerSystem;
 
 
 /**
@@ -34,6 +35,15 @@ public class SystemsDto {
     public SystemsDto(Integer id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public SystemsDto(PartnerSystem system){
+        this.id = system.getId();
+        this.name = system.getName();
+        this.hook = system.getHook();
+        this.path = system.getLogPath();
+        this.user = system.getUser();
+        this.host = system.getHost();
     }
 
     public Integer getId() {

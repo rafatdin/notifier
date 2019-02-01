@@ -30,7 +30,7 @@ import bFormSelect from 'bootstrap-vue/es/components/form-select/form-select'
 import bFormTextarea from 'bootstrap-vue/es/components/form-textarea/form-textarea'
 import bImage from 'bootstrap-vue/es/components/image/img'
 import bInputGroup from 'bootstrap-vue/es/components/input-group/index'
-import bButton from 'bootstrap-vue/es/components/button/button'
+import bTable from 'bootstrap-vue/es/components/table/table'
 
 import bContainer from 'bootstrap-vue/es/components/layout/container'
 import bRow from 'bootstrap-vue/es/components/layout/row'
@@ -66,6 +66,7 @@ Vue.component('b-form-select', bFormSelect);
 Vue.component('b-form-textarea', bFormTextarea);
 Vue.component('b-img', bImage);
 Vue.component('b-input-group', bInputGroup);
+Vue.component('b-table', bTable);
 
 Vue.component('b-container', bContainer);
 Vue.component('b-col', bCol);

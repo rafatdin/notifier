@@ -6,12 +6,12 @@ module.exports = {
     devServer: {
         proxy: ({
             '/api': {
-                target: 'http://localhost:8088',
+                target: process.env.VUE_APP_API_ENDPOINT,
                 ws: true,
                 changeOrigin: true
             },
             '/socket-api': {
-                target: 'http://localhost:8088',
+                target: process.env.VUE_APP_API_ENDPOINT,
                 ws: true,
                 changeOrigin: true
             }

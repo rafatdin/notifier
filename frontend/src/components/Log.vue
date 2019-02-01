@@ -91,7 +91,7 @@
             },
             connect() {
                 if(this.selected != null){
-                    this.socket = new SockJS("http://localhost:8088/websocket-server");
+                    this.socket = new SockJS(process.env.VUE_APP_API_ENDPOINT+"/websocket-server");
                     this.stompClient = Stomp.over(this.socket);
                     this.stompClient.connect(
                         {},

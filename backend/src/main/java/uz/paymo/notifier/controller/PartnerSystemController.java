@@ -33,7 +33,7 @@ public class PartnerSystemController {
     @GetMapping("/partners")
     public ResponseEntity<List<SystemsDto>> getPartnerSystems(){
         List<SystemsDto> result = new ArrayList<>();
-        partnerRepo.findAll().forEach(partnerSystem -> result.add(new SystemsDto(partnerSystem.getId(), partnerSystem.getName())));
+        partnerRepo.findAll().forEach(partnerSystem -> result.add(new SystemsDto(partnerSystem)));
         return ResponseEntity.ok(result);
     }
 
@@ -44,7 +44,7 @@ public class PartnerSystemController {
             PartnerSystem partner = new PartnerSystem(partnerDto, passAndSalt.getFirst(), passAndSalt.getSecond());
             partner = partnerRepo.save(partner);
 
-            return ResponseEntity.ok(partner);
+            return ResponseEntity.ok(new SystemsDto(partner));
         } catch (GeneralSecurityException | UnsupportedEncodingException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
